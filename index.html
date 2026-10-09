@@ -1,153 +1,45 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="TaskFlow - A sleek, modern workflow and task visualizer to streamline users and inputs through progression stages.">
-  <title>TaskFlow — Workflow & Task Visualizer</title>
-  <!-- Google Fonts -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TaskFlow - To Do List</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <div class="ambient-glow glow-1"></div>
-  <div class="ambient-glow glow-2"></div>
+    <div class="app">
+        <header>
+            <h1>TaskFlow</h1>
+            <p>Organize your day, one task at a time.</p>
+        </header>
 
-  <div class="app-container">
-    <!-- Header Section -->
-    <header class="app-header">
-      <div class="brand">
-        <div class="brand-icon">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon>
-          </svg>
-        </div>
-        <div class="brand-text">
-          <h1>TaskFlow</h1>
-          <span class="brand-badge">Visual Workflow</span>
-        </div>
-      </div>
-      <p class="tagline">Streamline users, inputs, and progression in a dynamic visual flow</p>
-    </header>
+        <main class="task-container">
+            <h2>My Tasks</h2>
 
-    <!-- Metrics / Progress Summary -->
-    <section class="stats-card">
-      <div class="stat-item">
-        <span class="stat-label">Total Items</span>
-        <span class="stat-value" id="totalCount">0</span>
-      </div>
-      <div class="stat-divider"></div>
-      <div class="stat-item">
-        <span class="stat-label">In Progress</span>
-        <span class="stat-value active-val" id="activeCount">0</span>
-      </div>
-      <div class="stat-divider"></div>
-      <div class="stat-item">
-        <span class="stat-label">Completed</span>
-        <span class="stat-value complete-val" id="completedCount">0</span>
-      </div>
-      <div class="stat-divider"></div>
-      <div class="stat-item stat-progress">
-        <div class="progress-info">
-          <span class="stat-label">Flow Rate</span>
-          <span class="progress-percent" id="progressPercent">0%</span>
-        </div>
-        <div class="progress-bar-track">
-          <div class="progress-bar-fill" id="progressBarFill" style="width: 0%"></div>
-        </div>
-      </div>
-    </section>
+            <form id="taskForm">
+                <input
+                    type="text"
+                    id="taskInput"
+                    placeholder="Enter a new task..."
+                    autocomplete="off"
+                    aria-label="Enter a new task"
+                >
+                <button type="submit" id="addTaskBtn">
+                    Add Task
+                </button>
+            </form>
 
-    <!-- Interactive Input Bar (With Single Action Button) -->
-    <section class="input-section">
-      <div class="input-card">
-        <div class="input-wrapper">
-          <span class="input-icon">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
-              <circle cx="12" cy="7" r="4"></circle>
-            </svg>
-          </span>
-          <input 
-            type="text" 
-            id="flowInput" 
-            class="flow-input" 
-            placeholder="Enter user name or task title (e.g. Alex Rivera, System Architecture)..." 
-            autocomplete="off"
-            maxlength="60"
-          />
-        </div>
-        <!-- Single Button as specified -->
-        <button type="button" id="addBtn" class="add-btn">
-          <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-            <line x1="12" y1="5" x2="12" y2="19"></line>
-            <line x1="5" y1="12" x2="19" y2="12"></line>
-          </svg>
-          <span>Add to Flow</span>
-        </button>
-      </div>
-      <p class="input-hint">Tip: Press <kbd>Enter</kbd> or click the button. Click any item card to advance it through the flow stages.</p>
-    </section>
+            <ul id="taskList" aria-live="polite"></ul>
 
-    <!-- Workflow Board Stages -->
-    <main class="workflow-board">
-      <!-- Stage 1: Backlog / Assigned -->
-      <div class="flow-column" data-stage="backlog">
-        <div class="column-header">
-          <div class="stage-indicator stage-backlog"></div>
-          <h2>Assigned / Queue</h2>
-          <span class="badge-count" id="badge-backlog">0</span>
-        </div>
-        <div class="column-items" id="items-backlog">
-          <!-- Dynamically inserted items -->
-        </div>
-      </div>
+            <p id="emptyMessage">No tasks yet. Add your first task!</p>
+        </main>
 
-      <!-- Stage 2: In Progress -->
-      <div class="flow-column" data-stage="in_progress">
-        <div class="column-header">
-          <div class="stage-indicator stage-progress"></div>
-          <h2>In Progress</h2>
-          <span class="badge-count" id="badge-in_progress">0</span>
-        </div>
-        <div class="column-items" id="items-in_progress">
-          <!-- Dynamically inserted items -->
-        </div>
-      </div>
+        <footer>
+            <p>Stay focused. Get things done.</p>
+        </footer>
+    </div>
 
-      <!-- Stage 3: Review -->
-      <div class="flow-column" data-stage="review">
-        <div class="column-header">
-          <div class="stage-indicator stage-review"></div>
-          <h2>In Review</h2>
-          <span class="badge-count" id="badge-review">0</span>
-        </div>
-        <div class="column-items" id="items-review">
-          <!-- Dynamically inserted items -->
-        </div>
-      </div>
-
-      <!-- Stage 4: Completed -->
-      <div class="flow-column" data-stage="completed">
-        <div class="column-header">
-          <div class="stage-indicator stage-completed"></div>
-          <h2>Completed</h2>
-          <span class="badge-count" id="badge-completed">0</span>
-        </div>
-        <div class="column-items" id="items-completed">
-          <!-- Dynamically inserted items -->
-        </div>
-      </div>
-    </main>
-
-    <!-- Footer -->
-    <footer class="app-footer">
-      <p>TaskFlow &bull; Click card to advance stage &bull; Double-click to remove</p>
-    </footer>
-  </div>
-
-  <script src="script.js"></script>
+    <script src="script.js"></script>
 </body>
 </html>

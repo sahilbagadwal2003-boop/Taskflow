@@ -68,6 +68,10 @@ header p {
     box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.12);
 }
 
+button {
+    font-family: inherit;
+}
+
 #addTaskBtn {
     padding: 13px 18px;
     border: none;
@@ -87,13 +91,59 @@ header p {
     list-style: none;
 }
 
-#taskList li {
-    padding: 15px;
-    margin-bottom: 10px;
+#taskList .task-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 12px;
+    padding: 14px;
     background: #f8fafc;
     border: 1px solid #e2e8f0;
     border-radius: 8px;
+    transition: background 0.2s ease;
+}
+
+.task-name {
+    flex: 1;
+    min-width: 0;
     overflow-wrap: anywhere;
+    font-size: 15px;
+}
+
+.complete-btn {
+    flex-shrink: 0;
+    padding: 9px 12px;
+    border: none;
+    border-radius: 6px;
+    background: #16a34a;
+    color: #ffffff;
+    font-size: 13px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.complete-btn:hover {
+    background: #15803d;
+}
+
+#taskList .task-item.completed {
+    background: #ecfdf5;
+    border-color: #bbf7d0;
+}
+
+.completed-text {
+    color: #64748b;
+    text-decoration: line-through;
+}
+
+.complete-btn.completed-btn {
+    background: #94a3b8;
+    cursor: default;
+}
+
+.complete-btn:disabled {
+    opacity: 1;
 }
 
 #emptyMessage {
@@ -129,5 +179,13 @@ footer {
 
     #addTaskBtn {
         width: 100%;
+    }
+
+    #taskList .task-item {
+        align-items: flex-start;
+    }
+
+    .complete-btn {
+        padding: 8px 10px;
     }
 }

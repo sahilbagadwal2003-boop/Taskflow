@@ -15,7 +15,7 @@ body {
 
 .app {
     width: 100%;
-    max-width: 650px;
+    max-width: 700px;
     margin: 0 auto;
 }
 
@@ -70,6 +70,7 @@ header p {
 
 button {
     font-family: inherit;
+    transition: background 0.2s ease;
 }
 
 #addTaskBtn {
@@ -101,7 +102,6 @@ button {
     background: #f8fafc;
     border: 1px solid #e2e8f0;
     border-radius: 8px;
-    transition: background 0.2s ease;
 }
 
 .task-name {
@@ -111,20 +111,38 @@ button {
     font-size: 15px;
 }
 
-.complete-btn {
+.task-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.complete-btn,
+.delete-btn {
     flex-shrink: 0;
     padding: 9px 12px;
     border: none;
     border-radius: 6px;
-    background: #16a34a;
     color: #ffffff;
     font-size: 13px;
     font-weight: bold;
     cursor: pointer;
 }
 
+.complete-btn {
+    background: #16a34a;
+}
+
 .complete-btn:hover {
     background: #15803d;
+}
+
+.delete-btn {
+    background: #dc2626;
+}
+
+.delete-btn:hover {
+    background: #b91c1c;
 }
 
 #taskList .task-item.completed {
@@ -160,7 +178,7 @@ footer {
     font-size: 14px;
 }
 
-@media (max-width: 480px) {
+@media (max-width: 520px) {
     body {
         padding: 25px 12px;
     }
@@ -183,9 +201,15 @@ footer {
 
     #taskList .task-item {
         align-items: flex-start;
+        flex-direction: column;
     }
 
-    .complete-btn {
-        padding: 8px 10px;
+    .task-actions {
+        width: 100%;
+    }
+
+    .complete-btn,
+    .delete-btn {
+        padding: 9px 12px;
     }
 }
